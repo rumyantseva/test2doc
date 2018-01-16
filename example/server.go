@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/adams-sarah/test2doc/example/foos"
-	"github.com/adams-sarah/test2doc/example/widgets"
 	"github.com/gorilla/mux"
+	"github.com/rumyantseva/test2doc/example/foos"
+	"github.com/rumyantseva/test2doc/example/widgets"
 )
 
 func main() {

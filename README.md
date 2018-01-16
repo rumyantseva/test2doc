@@ -88,7 +88,7 @@ retrieves a single Widget
 
 ### Installation
 
-`go get github.com/adams-sarah/test2doc/...`
+`go get github.com/rumyantseva/test2doc/...`
 
 <br>
 
@@ -103,7 +103,7 @@ Very few additions, and only to your testing code.
 ```go
 
 import (
-	"github.com/adams-sarah/test2doc/test"
+	"github.com/rumyantseva/test2doc/test"
 )
 
 var server *test.Server

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/adams-sarah/prettytest"
-	"github.com/adams-sarah/test2doc/test"
 	"github.com/gorilla/mux"
+	"github.com/rumyantseva/test2doc/test"
 )
 
 var router *mux.Router
