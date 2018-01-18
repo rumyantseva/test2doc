@@ -32,7 +32,7 @@ type Metadata struct {
 	Host   string
 }
 
-func NewDoc(pkgDir string) (doc *Doc, err error) {
+func NewDoc(pkgDir, groupName string) (doc *Doc, err error) {
 	pkgDoc, err := parse.NewPackageDoc(pkgDir)
 	if err != nil {
 		return doc, err
@@ -50,7 +50,7 @@ func NewDoc(pkgDir string) (doc *Doc, err error) {
 
 	doc = &Doc{
 		Group: ResourceGroup{
-			Title: strings.Title(pkgDoc.Name),
+			Title: strings.Title(groupName),
 		},
 		file: fi,
 	}

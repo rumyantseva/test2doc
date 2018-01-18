@@ -19,13 +19,13 @@ type Server struct {
 }
 
 // TODO: filter out 404 responses
-func NewServer(handler http.Handler) (s *Server, err error) {
+func NewServer(handler http.Handler, groupName string) (s *Server, err error) {
 	// check if url var extractor func is set
 	if parse.Extractor == nil {
 		panic("please set a URLVarExtractor.")
 	}
 
-	outDoc, err := doc.NewDoc(".")
+	outDoc, err := doc.NewDoc(".", groupName)
 	if err != nil {
 		return s, err
 	}
