@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"runtime"
 
-	"github.com/rumyantseva/test2doc/doc/parse"
+	"github.com/rumyantseva/test2doc/parse"
 )
 
 type ResponseWriter struct {

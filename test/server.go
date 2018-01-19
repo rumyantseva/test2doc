@@ -7,7 +7,7 @@ import (
 	"sort"
 
 	"github.com/rumyantseva/test2doc/doc"
-	"github.com/rumyantseva/test2doc/doc/parse"
+	"github.com/rumyantseva/test2doc/parse"
 )
 
 // resources = map[uri]Resource

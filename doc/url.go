@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/rumyantseva/test2doc/doc/parse"
+	"github.com/rumyantseva/test2doc/parse"
 )
 
 type URL struct {
@@ -33,8 +33,13 @@ func paramPath(req *http.Request) (string, []Parameter) {
 	params := []Parameter{}
 
 	for k, v := range vars {
+		var helper Parameter
+		if p, ok := h.parameters[uri]; ok {
+			helper = p
+		}
+
 		uri = strings.Replace(uri, "/"+v, "/{"+k+"}", 1)
-		params = append(params, MakeParameter(k, v))
+		params = append(params, MakeParameter(k, v, helper))
 	}
 
 	var queryKeys []string
@@ -44,7 +49,7 @@ func paramPath(req *http.Request) (string, []Parameter) {
 		queryKeys = append(queryKeys, k)
 
 		// just take first value
-		params = append(params, MakeParameter(k, vs[0]))
+		params = append(params, MakeParameter(k, vs[0], Parameter{}))
 	}
 
 	var queryKeysStr string

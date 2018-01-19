@@ -12,6 +12,8 @@ const (
 	Number ParameterType = iota
 	String
 	Boolean
+	EnumString
+	EnumNumber
 )
 
 const (
@@ -21,7 +23,14 @@ const (
 
 var (
 	parameterTmpl *template.Template
-	parameterFmt  = `    + {{.Name}}: {{.Value.Quote}} ({{.Type.String}}){{with .Description}} - {{.}}{{end}}`
+	parameterFmt  = `    + {{.Name}}: {{.Value.Quote}} ({{.Type.String}}){{with .Description}} - {{.}}{{end}}
+{{with .AdditionalDescription}}{{.}}{{end}}
+{{with .DefaultValue}}+ Default: {{.}}{{end}}
+{{if .Members}}
+    + Members{{range .Members}}
+		+ {{.}}{{end}}
+{{end}}
+`
 )
 
 func init() {
@@ -29,24 +38,26 @@ func init() {
 }
 
 type Parameter struct {
-	Name        string
-	Description string
-	Value       ParameterValue
-	Type        ParameterType
-	IsRequired  bool
+	Name                  string
+	Description           string
+	AdditionalDescription string
+	Value                 ParameterValue
+	Type                  ParameterType
+	IsRequired            bool
 
-	// TODO:
-	// DefaultValue
+	// String representation of the parameters
+	DefaultValue string
+	Members      []string
 }
 
-func MakeParameter(key, val string) Parameter {
-	return Parameter{
-		Name:       key,
-		Value:      ParameterValue(val),
-		Type:       paramType(val),
-		IsRequired: true, // assume anything in route URL is required
-		// query params are a different story
+func MakeParameter(key, val string, p Parameter) Parameter {
+	p.Name = key
+	p.Value = ParameterValue(val)
+	if p.Type == ParameterType(0) {
+		p.Type = paramType(val)
 	}
+	p.IsRequired = true // assume anything in route URL is required
+	return p
 }
 
 func (p *Parameter) Render() string {
@@ -89,6 +100,10 @@ func (pt ParameterType) String() string {
 		return "number"
 	case Boolean:
 		return "boolean"
+	case EnumString:
+		return "enum[string]"
+	case EnumNumber:
+		return "enum[number]"
 	default:
 		return "string"
 	}

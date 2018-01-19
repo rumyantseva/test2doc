@@ -7,11 +7,10 @@ import (
 
 var (
 	requestTmpl *template.Template
-	requestFmt  = `{{if or .HasBody .HasHeader}}
-+ Request {{if .HasContentType}}({{.Header.ContentType}}){{end}}{{with .Header}}
+	requestFmt  = `+ Request {{if .HasContentType}}({{.Header.ContentType}}){{end}}{{with .Header}}
 
 {{.Render}}{{end}}{{with .Body}}
-{{.Render}}{{end}}{{end}}`
+{{.Render}}{{end}}`
 )
 
 func init() {
